@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/Image">
+        <file>data/ui.png</file>
+        <file>data/images/button/button-h.png</file>
+        <file>data/images/button/button-n.png</file>
+        <file>data/images/button/button-s.png</file>
+        <file>data/images/mainui/bg.png</file>
+        <file>data/images/mainui/close.png</file>
+        <file>data/images/mainui/close-H.png</file>
+        <file>data/images/mainui/main.png</file>
+        <file>data/images/mainui/max.png</file>
+        <file>data/images/mainui/min.png</file>
+        <file>data/images/mainui/min-H.png</file>
+        <file>data/images/mainui/title.png</file>
+    </qresource>
+</RCC>
