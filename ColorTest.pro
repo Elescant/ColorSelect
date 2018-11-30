@@ -4,12 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ColorTest
 TEMPLATE = app
+RC_FILE = logo.rc
+#RC_ICONS = car.icon
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -31,7 +33,9 @@ SOURCES += main.cpp\
     CustomColorArea.cpp \
     HColorArea.cpp \
     PreviewColorArea.cpp \
-    SVColorArea.cpp
+    SVColorArea.cpp \
+    mainwindow.cpp \
+    Lin.cpp
 
 HEADERS  += ColorTest.h \
     BasicColorArea.h \
@@ -40,10 +44,14 @@ HEADERS  += ColorTest.h \
     CustomColorArea.h \
     HColorArea.h \
     PreviewColorArea.h \
-    SVColorArea.h
+    SVColorArea.h \
+    mainwindow.h \
+    Lin.h
 
 FORMS    += ColorTest.ui \
     ColorDialog.ui
 
 RESOURCES += \
     res.qrc
+
+DISTFILES +=

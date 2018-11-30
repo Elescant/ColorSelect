@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>ColorDialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/Image/car.ico</normaloff>:/Image/car.ico</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">/*主界面样式表*/
 QWidget
@@ -832,34 +836,36 @@ QSpinBox::down-button
   <customwidget>
    <class>BasicColorArea</class>
    <extends>QWidget</extends>
-   <header>basiccolorarea.h</header>
+   <header>BasicColorArea.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>CustomColorArea</class>
    <extends>QWidget</extends>
-   <header>customcolorarea.h</header>
+   <header>CustomColorArea.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>SVColorArea</class>
    <extends>QWidget</extends>
-   <header>svcolorarea.h</header>
+   <header>SVColorArea.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>HColorArea</class>
    <extends>QWidget</extends>
-   <header>hcolorarea.h</header>
+   <header>HColorArea.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PreviewColorArea</class>
    <extends>QWidget</extends>
-   <header>previewcolorarea.h</header>
+   <header>PreviewColorArea.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,6 +1,7 @@
 #include <QMouseEvent>
 #include "ColorDialog.h"
 #include "ui_ColorDialog.h"
+#include <QDebug>
 
 class ColorDialog::ColorSetting
 {
@@ -38,7 +39,7 @@ ColorDialog::ColorDialog(QWidget *parent)
 
 	//标题
 	m_pTitleLbl = new QLabel(this);
-	m_pTitleLbl->setText(QString::fromLocal8Bit("编辑颜色"));
+    m_pTitleLbl->setText(QString::fromLocal8Bit("华晨"));
 	m_pTitleLbl->setFixedSize(190, 34);
 
 	//关闭按钮
@@ -63,18 +64,19 @@ ColorDialog::ColorDialog(QWidget *parent)
 ColorDialog::~ColorDialog()
 {
 	delete m_pSetting;
+    qDebug()<<"~ColorDialog";
 }
 
 ColorDialog::ButtonRole ColorDialog::showDialog()
 {
 	show();
-	QEventLoop evtLoop;
-	m_pEvtLoop = &evtLoop;
-	evtLoop.exec();
+//	QEventLoop evtLoop;
+//	m_pEvtLoop = &evtLoop;
+//	evtLoop.exec();
 
-	m_pEvtLoop = NULL;
-	hide();
-	return m_buttonRole;
+//	m_pEvtLoop = NULL;
+//	hide();
+//	return m_buttonRole;
 }
 
 void ColorDialog::setCurColor(const QColor &c)
@@ -158,7 +160,7 @@ void ColorDialog::initSignalAndSlotConn()
 	connect(m_pSetting->ui.addCustomColorBtn, SIGNAL(clicked()), this, SLOT(addCustomColorSlot()));
 	connect(m_pSetting->ui.okBtn, SIGNAL(clicked()), this, SLOT(okBtnClickedSlot()));
 	connect(m_pSetting->ui.cancelBtn, SIGNAL(clicked()), this, SLOT(cancelBtnClickedSlot()));
-	connect(m_pCloseBtn, SIGNAL(clicked()), this, SLOT(cancelBtnClickedSlot()));
+    connect(m_pCloseBtn, SIGNAL(clicked()), this, SLOT(closeBtnClickedSlot()));
 
 	connect(m_pSetting->ui.hSpinBox, SIGNAL(valueChanged(int)), this, SLOT(hValueChangedSlot(int)));
 	connect(m_pSetting->ui.sSpinBox, SIGNAL(valueChanged(int)), this, SLOT(sValueChangedSlot(int)));
@@ -206,23 +208,32 @@ void ColorDialog::addCustomColorSlot()
 void ColorDialog::okBtnClickedSlot()
 {
 	QColor color;
+
 	color.setHsv(m_pSetting->m_iHue, m_pSetting->m_iSaturation, m_pSetting->m_iBrightness);
 	m_pSetting->ui.previewWgt->setCurColor(color);
 
+   emit colorSelect(color);
+
 	m_buttonRole = Yes;
-	if (m_pEvtLoop != NULL)
-	{
-		m_pEvtLoop->exit();
-	}
+//	if (m_pEvtLoop != NULL)
+//	{
+//		m_pEvtLoop->exit();
+//	}
 }
 
 void ColorDialog::cancelBtnClickedSlot()
 {
-	m_buttonRole = No;
-	if (m_pEvtLoop != NULL)
-	{
-		m_pEvtLoop->exit();
-	}
+    m_buttonRole = No;
+    emit cancelBtnsignal();
+//	if (m_pEvtLoop != NULL)
+//	{
+//		m_pEvtLoop->exit();
+//    }
+}
+
+void ColorDialog::closeBtnClickedSlot()
+{
+  close();
 }
 
 void ColorDialog::editChangedSlot(const QString &strColor)

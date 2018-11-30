@@ -27,11 +27,16 @@ private:
 	void initSignalAndSlotConn();
 	void updateRGBColor(const QColor &);
 
+signals:
+    void colorSelect(QColor color);
+    void cancelBtnsignal(void);
+
 private slots:
 	void colorItemSelcSlot(const QColor &);
 	void addCustomColorSlot();
 	void okBtnClickedSlot();
 	void cancelBtnClickedSlot();
+    void closeBtnClickedSlot();
 	void editChangedSlot(const QString &);
 	void editFinishedSlot();
 

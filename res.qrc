@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/Image">
-        <file>data/ui.png</file>
         <file>data/images/button/button-h.png</file>
         <file>data/images/button/button-n.png</file>
         <file>data/images/button/button-s.png</file>
@@ -12,5 +11,6 @@
         <file>data/images/mainui/min.png</file>
         <file>data/images/mainui/min-H.png</file>
         <file>data/images/mainui/title.png</file>
+        <file>car.ico</file>
     </qresource>
 </RCC>
