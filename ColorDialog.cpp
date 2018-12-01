@@ -36,7 +36,6 @@ ColorDialog::ColorDialog(QWidget *parent)
 	, m_bNotEdit(false)
 {
 	m_pSetting->ui.setupUi(this);
-
 	//标题
 	m_pTitleLbl = new QLabel(this);
     m_pTitleLbl->setText(QString::fromLocal8Bit("华晨"));
@@ -47,9 +46,9 @@ ColorDialog::ColorDialog(QWidget *parent)
 	m_pCloseBtn->setFixedSize(22, 34);
 	m_pCloseBtn->setObjectName("m_pCloseBtn");
 
-	m_buttonRole = Yes;
+//	m_buttonRole = Yes;
 	setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
-	setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_TranslucentBackground);
 	this->installEventFilter(this);
 
 	QRegExp rx("(\\d?[a-f]?){0,6}");
@@ -214,7 +213,7 @@ void ColorDialog::okBtnClickedSlot()
 
    emit colorSelect(color);
 
-	m_buttonRole = Yes;
+//	m_buttonRole = Yes;
 //	if (m_pEvtLoop != NULL)
 //	{
 //		m_pEvtLoop->exit();
@@ -223,7 +222,7 @@ void ColorDialog::okBtnClickedSlot()
 
 void ColorDialog::cancelBtnClickedSlot()
 {
-    m_buttonRole = No;
+//    m_buttonRole = No;
     emit cancelBtnsignal();
 //	if (m_pEvtLoop != NULL)
 //	{
@@ -518,7 +517,7 @@ void ColorDialog::bValueChangedSlot(int b)
 	m_pSetting->ui.svColorWgt->setHsv(h, s, v);
 	m_pSetting->ui.previewWgt->setNewColor(color);
 
-	m_pSetting->ui.hSpinBox->setValue(h);
+    m_pSetting->ui.hSpinBox->setValue(h);
 	m_pSetting->ui.sSpinBox->setValue(s);
 	m_pSetting->ui.vSpinBox->setValue(v);
 

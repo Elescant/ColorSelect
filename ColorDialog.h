@@ -55,7 +55,7 @@ private:
 	QLabel *m_pTitleLbl;
 	QPushButton *m_pCloseBtn;
 	QEventLoop *m_pEvtLoop;
-	ButtonRole m_buttonRole;
+//	ButtonRole m_buttonRole;
 	bool m_bNotEdit;
 };
 

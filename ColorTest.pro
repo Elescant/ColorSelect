@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ColorTest
 TEMPLATE = app
-RC_FILE = logo.rc
+#RC_FILE = logo.rc
 #RC_ICONS = car.icon
 
 # The following define makes your compiler emit warnings if you use
