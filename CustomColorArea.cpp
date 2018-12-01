@@ -24,7 +24,7 @@ void CustomColorArea::setGivenColor(const QColor &c)
 
 void CustomColorArea::initColorItems()
 {
-	BasicColorItem *pItem11 = new BasicColorItem(QColor(0, 0, 255));
+    BasicColorItem *pItem11 = new BasicColorItem(QColor(255, 255, 255));
 	BasicColorItem *pItem12 = new BasicColorItem(QColor(255, 255, 255));
 	BasicColorItem *pItem13 = new BasicColorItem(QColor(255, 255, 255));
 	BasicColorItem *pItem14 = new BasicColorItem(QColor(255, 255, 255));

@@ -167,10 +167,37 @@ void ColorDialog::initSignalAndSlotConn()
 	connect(m_pSetting->ui.rSpinBox, SIGNAL(valueChanged(int)), this, SLOT(rValueChangedSlot(int)));
 	connect(m_pSetting->ui.gSpinBox, SIGNAL(valueChanged(int)), this, SLOT(gValueChangedSlot(int)));
 	connect(m_pSetting->ui.bSpinBox, SIGNAL(valueChanged(int)), this, SLOT(bValueChangedSlot(int)));
+
+    //    typedef  void (QSpinBox::*pfun)(int);
+    //    pfun fun = &QSpinBox::valueChanged;
+
+    //    void (QSpinBox::*fun)(int);
+    //    fun = &QSpinBox::valueChanged;
+
+    connect(m_pSetting->ui.hSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_h,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_h,&QSlider::valueChanged,m_pSetting->ui.hSpinBox,&QSpinBox::setValue);
+
+    connect(m_pSetting->ui.sSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_s,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_s,&QSlider::valueChanged,m_pSetting->ui.sSpinBox,&QSpinBox::setValue);
+
+    connect(m_pSetting->ui.vSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_v,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_v,&QSlider::valueChanged,m_pSetting->ui.vSpinBox,&QSpinBox::setValue);
+
+    connect(m_pSetting->ui.rSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_red,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_red,&QSlider::valueChanged,m_pSetting->ui.rSpinBox,&QSpinBox::setValue);
+
+    connect(m_pSetting->ui.gSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_green,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_green,&QSlider::valueChanged,m_pSetting->ui.gSpinBox,&QSpinBox::setValue);
+
+    connect(m_pSetting->ui.bSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_blue,&QSlider::setValue);
+    connect(m_pSetting->ui.hSlider_blue,&QSlider::valueChanged,m_pSetting->ui.bSpinBox,&QSpinBox::setValue);
+
+
 }
 
 void ColorDialog::updateRGBColor(const QColor &color)
 {
+    qDebug()<<"updateRGBColor";
 	m_pSetting->ui.previewWgt->setNewColor(color);
 
 	m_pSetting->ui.rSpinBox->setValue(color.red());
@@ -189,6 +216,7 @@ void ColorDialog::updateRGBColor(const QColor &color)
 
 void ColorDialog::colorItemSelcSlot(const QColor &c)
 {
+    qDebug()<<"colorItemSelecSlot";
 	m_bNotEdit = true;
 
 	m_pSetting->ui.hColorWgt->setHue(c.hue());
@@ -237,6 +265,7 @@ void ColorDialog::closeBtnClickedSlot()
 
 void ColorDialog::editChangedSlot(const QString &strColor)
 {
+    qDebug()<<"editChangeSlot";
 	m_bNotEdit = true;
 
 	int r, g, b;
@@ -534,6 +563,7 @@ void ColorDialog::bValueChangedSlot(int b)
 
 void ColorDialog::updateEditData(int h, int s, int v)
 {
+    qDebug()<<"updateEditData";
 	m_bNotEdit = true;
 
 	m_pSetting->m_iHue = h;

@@ -540,7 +540,7 @@ QSpinBox::down-button
        <number>255</number>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider">
+     <widget class="QSlider" name="hSlider_h">
       <property name="geometry">
        <rect>
         <x>640</x>
@@ -549,11 +549,14 @@ QSpinBox::down-button
         <height>16</height>
        </rect>
       </property>
+      <property name="maximum">
+       <number>360</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider_2">
+     <widget class="QSlider" name="hSlider_s">
       <property name="geometry">
        <rect>
         <x>640</x>
@@ -562,11 +565,14 @@ QSpinBox::down-button
         <height>16</height>
        </rect>
       </property>
+      <property name="maximum">
+       <number>255</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
-     <widget class="QSlider" name="horizontalSlider_3">
+     <widget class="QSlider" name="hSlider_v">
       <property name="geometry">
        <rect>
         <x>640</x>
@@ -574,6 +580,9 @@ QSpinBox::down-button
         <width>160</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="maximum">
+       <number>255</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -588,6 +597,9 @@ QSpinBox::down-button
         <height>16</height>
        </rect>
       </property>
+      <property name="maximum">
+       <number>255</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -600,6 +612,9 @@ QSpinBox::down-button
         <width>160</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="maximum">
+       <number>255</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -615,8 +630,10 @@ QSpinBox::down-button
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">
-</string>
+       <string notr="true"/>
+      </property>
+      <property name="maximum">
+       <number>255</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
