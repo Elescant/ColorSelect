@@ -47,6 +47,7 @@ bool MainWindow::config()
            lin_handle->setIDLength(LINID_0x2A,8);
         }
     }
+    return true;
 }
 
 void MainWindow::colorChangeSlot(QColor color)

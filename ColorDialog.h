@@ -14,7 +14,7 @@ public:
 	enum ButtonRole{Yes, No};
 	ColorDialog(QWidget *parent = 0);
 	~ColorDialog();
-	ButtonRole showDialog();
+    void showDialog();
 	void setCurColor(const QColor &);
 	QColor getColor();
 	QRgb getRgb();

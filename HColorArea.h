@@ -31,8 +31,8 @@ private:
 	QPixmap m_huePixmap;
 	double m_hue;
 	int m_iHue;
-	const int m_iColorHeight;	//颜色区域的高度
-	const int m_iColorWidth;	//颜色区域的宽度
+    const int m_iColorWidth;	//颜色区域的宽度
+    const int m_iColorHeight;	//颜色区域的高度
 	const int topMargin = 7;
 	const int rightMargin = 9;
 };

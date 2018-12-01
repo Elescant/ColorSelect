@@ -66,7 +66,7 @@ ColorDialog::~ColorDialog()
     qDebug()<<"~ColorDialog";
 }
 
-ColorDialog::ButtonRole ColorDialog::showDialog()
+void ColorDialog::ColorDialog::showDialog()
 {
 	show();
 //	QEventLoop evtLoop;
