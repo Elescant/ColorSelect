@@ -20,7 +20,7 @@ public:
 signals:
 
 public slots:
-    void colorChangeSlot(QColor color);
+    void colorChangeSlot(QColor color,uint8_t fun_bright,uint32_t id);
     void sendMsgSlot(void);
     void cancelBtnSlot();
 

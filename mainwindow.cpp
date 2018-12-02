@@ -13,7 +13,7 @@ MainWindow::MainWindow(QObject *parent) : QObject(parent)
 
     connect(colordialog,&ColorDialog::colorSelect,this,&MainWindow::colorChangeSlot);
     connect(colordialog,&ColorDialog::cancelBtnsignal,this,&MainWindow::cancelBtnSlot);
-    connect(sendMsgTimer,&QTimer::timeout,this,&MainWindow::sendMsgSlot);
+//    connect(sendMsgTimer,&QTimer::timeout,this,&MainWindow::sendMsgSlot);
 }
 
 void MainWindow::show()
@@ -50,29 +50,30 @@ bool MainWindow::config()
     return true;
 }
 
-void MainWindow::colorChangeSlot(QColor color)
+void MainWindow::colorChangeSlot(QColor color, uint8_t fun_bright, uint32_t id)
 {
     //qDebug()<<color.red()<<color.green()<<color.blue();
     uint8_t dat[8];
 
-    sendMsgTimer->stop();
-    dat[0] = 0xFF;
-    dat[1] = 0xFF;
-    dat[2] = 0xFF;
+//    sendMsgTimer->stop();
+    dat[0] = (id & 0xFF);
+    dat[1] = (uint8_t)((id >> 8) & 0xFF);
+    dat[2] = (uint8_t)((id >> 16) & 0xFF);
 
     dat[3] = color.red();
     dat[4] = color.green();
     dat[5] = color.blue();
 
-    dat[6] = 0x14;//function and brightness
+    dat[6] = fun_bright;//function and brightness
     dat[7] = 0xAA;//crc
 
 
     if(serial_valid && serial->isOpen())
     {
         lin_handle->setIdData(LINID_0x2A,dat,8);
+        QTimer::singleShot(1, this, SLOT(sendMsgSlot()));
     }
-    sendMsgTimer->start();
+//    sendMsgTimer->start();
 }
 
 void MainWindow::sendMsgSlot()

@@ -26,6 +26,9 @@ public:
 
 	}
 
+private slots:
+
+
 private:
 
 };
@@ -49,11 +52,18 @@ ColorDialog::ColorDialog(QWidget *parent)
 //	m_buttonRole = Yes;
 	setWindowFlags(Qt::FramelessWindowHint | Qt::Window);
     setAttribute(Qt::WA_TranslucentBackground);
-	this->installEventFilter(this);
+    this->installEventFilter(this);
 
 	QRegExp rx("(\\d?[a-f]?){0,6}");
 	m_pSetting->ui.colorEdit->setValidator(new QRegExpValidator(rx, this));
 	m_pSetting->ui.colorEdit->setText("000000");
+
+    m_btnGroup = new QButtonGroup(this);
+    m_btnGroup->addButton(m_pSetting->ui.radioBtn_off,0);
+    m_btnGroup->addButton(m_pSetting->ui.radioBtn_on,1);
+    m_btnGroup->addButton(m_pSetting->ui.radioBtn_slow,2);
+    m_btnGroup->addButton(m_pSetting->ui.radioBtn_fast,3);
+    m_btnGroup->addButton(m_pSetting->ui.radioBtn_gradual,4);
 
 	this->setFocusPolicy(Qt::ClickFocus);
 
@@ -121,7 +131,7 @@ bool ColorDialog::eventFilter(QObject *obj, QEvent *ev)
 	}
 		break;
 	case QEvent::MouseMove:
-	{
+    {
 		QMouseEvent *e = dynamic_cast<QMouseEvent *>(ev);
 		if (m_pSetting->m_bPressed)
 		{
@@ -148,6 +158,8 @@ void ColorDialog::show()
 
 void ColorDialog::initSignalAndSlotConn()
 {
+    connect(m_pSetting->ui.listWdt_id,&QListWidget::itemPressed,this,&ColorDialog::listWdtItemPressSlot,Qt::QueuedConnection);
+
 	connect(m_pSetting->ui.hColorWgt, SIGNAL(hueChangedSignal(int)), m_pSetting->ui.svColorWgt, SLOT(hueChangedSlot(int)));
 	connect(m_pSetting->ui.svColorWgt, SIGNAL(svChangedSignal(int, int, int)), m_pSetting->ui.previewWgt, SLOT(svChangedSlot(int, int, int)));
 	connect(m_pSetting->ui.previewWgt, SIGNAL(svChangedSignal(int, int, int)), this, SLOT(updateEditData(int, int, int)));
@@ -235,11 +247,37 @@ void ColorDialog::addCustomColorSlot()
 void ColorDialog::okBtnClickedSlot()
 {
 	QColor color;
+    uint8_t fun = 0;
+    uint8_t bright = 0;
+    uint8_t fun_bright=0;
+    uint32_t id = 0;
 
 	color.setHsv(m_pSetting->m_iHue, m_pSetting->m_iSaturation, m_pSetting->m_iBrightness);
 	m_pSetting->ui.previewWgt->setCurColor(color);
 
-   emit colorSelect(color);
+    fun = m_btnGroup->checkedId();
+    bright = m_pSetting->ui.hSlider_level->value();
+
+    fun_bright = (fun << 5)| bright;
+
+    QListWidget *lsw = m_pSetting->ui.listWdt_id;
+    if(lsw->item(0)->isSelected())
+    {
+        id = 0xFFFFFF;
+    }else
+    {
+        for(int i=1;i < lsw->count();i++)
+        {
+            if(lsw->item(i)->isSelected())
+            {
+                id |= (((uint32_t)1)<<(i-1));
+            }
+        }
+    }
+    qDebug()<<"fun: "<<fun<<"bright: "<<bright;
+    qDebug("id %x",id);
+
+    emit colorSelect(color,fun_bright,id);
 
 //	m_buttonRole = Yes;
 //	if (m_pEvtLoop != NULL)
@@ -586,5 +624,62 @@ void ColorDialog::updateEditData(int h, int s, int v)
 		QString("%1").arg(strB.size() == 1 ? strB.prepend("0") : strB));
 	m_pSetting->ui.colorEdit->setText(strRgb);
 
-	m_bNotEdit = false;
+    m_bNotEdit = false;
 }
+
+void ColorDialog::listWdtItemPressSlot(QListWidgetItem *item)
+{
+    QListWidget *plw = m_pSetting->ui.listWdt_id;
+    int count = plw->count();
+
+    if(plw->currentRow() == 0)
+    {
+        bool sel = plw->item(0)->isSelected();
+        for(int i = 1;i < count;i++)
+        {
+            plw->item(i)->setSelected(sel);
+        }
+    }else
+    {
+        int j = 1;
+        for(j = 1;j < count;j++)
+        {
+            if(!plw->item(j)->isSelected())
+            {
+                break;
+            }
+        }
+        if(j == count)
+        {
+            plw->item(0)->setSelected(true);
+        }else
+        {
+            plw->item(0)->setSelected(false);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

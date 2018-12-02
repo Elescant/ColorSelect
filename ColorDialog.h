@@ -4,14 +4,15 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
-#include <QEventLoop>
+#include <QButtonGroup>
+#include <QListWidget>
+//#include <QEventLoop>
 
 class ColorDialog : public QWidget
 {
 	Q_OBJECT
 
 public:
-	enum ButtonRole{Yes, No};
 	ColorDialog(QWidget *parent = 0);
 	~ColorDialog();
     void showDialog();
@@ -28,7 +29,7 @@ private:
 	void updateRGBColor(const QColor &);
 
 signals:
-    void colorSelect(QColor color);
+    void colorSelect(QColor color,uint8_t fuc_bright,uint32_t id);
     void cancelBtnsignal(void);
 
 private slots:
@@ -49,14 +50,18 @@ private slots:
 
 	void updateEditData(int, int, int);
 
+    void listWdtItemPressSlot(QListWidgetItem *item);
+
 private:
 	class ColorSetting;
 	ColorSetting * const m_pSetting;
 	QLabel *m_pTitleLbl;
 	QPushButton *m_pCloseBtn;
-	QEventLoop *m_pEvtLoop;
+//	QEventLoop *m_pEvtLoop;
+    QButtonGroup *m_btnGroup;
+    QListWidget m_idView;
 //	ButtonRole m_buttonRole;
-	bool m_bNotEdit;
+    bool m_bNotEdit;
 };
 
 #endif // COLORDIALOG_H
