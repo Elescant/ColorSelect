@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QButtonGroup>
 #include <QListWidget>
+#include <stdint.h>
 //#include <QEventLoop>
 
 class ColorDialog : public QWidget

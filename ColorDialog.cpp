@@ -629,6 +629,7 @@ void ColorDialog::updateEditData(int h, int s, int v)
 
 void ColorDialog::listWdtItemPressSlot(QListWidgetItem *item)
 {
+    (void)item;
     QListWidget *plw = m_pSetting->ui.listWdt_id;
     int count = plw->count();
 

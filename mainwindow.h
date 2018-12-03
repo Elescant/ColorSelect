@@ -7,6 +7,8 @@
 #include "Lin.h"
 #include <QColor>
 #include <QTimer>
+#include <stdint.h>
+#include <stddef.h>
 
 class MainWindow : public QObject
 {

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSerialPort>
+#include <stdint.h>
 
 class Lin : public QObject
 {
