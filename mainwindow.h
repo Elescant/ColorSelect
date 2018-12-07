@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <stdint.h>
 #include <stddef.h>
+#include "WorkThread.h"
 
 class MainWindow : public QObject
 {
@@ -16,22 +17,21 @@ class MainWindow : public QObject
 public:
     enum {LINID_0x2A=0x2A};
     explicit MainWindow(QObject *parent = nullptr);
+    ~MainWindow();
 
     void show(void);
     bool config(void);
 signals:
-
+    void sendMsg(uint8_t *dat);
 public slots:
     void colorChangeSlot(QColor color,uint8_t fun_bright,uint32_t id);
-    void sendMsgSlot(void);
     void cancelBtnSlot();
-
+    void sendMsgRetSlot(bool ret);
 private:
     ColorDialog *colordialog;
-    QSerialPort *serial;
-    Lin *lin_handle;
-    bool serial_valid;
-    QTimer *sendMsgTimer;
+
+    WorkThread *workThread;
+    uint8_t dat[8];
 };
 
 #endif // MAINWINDOW_H

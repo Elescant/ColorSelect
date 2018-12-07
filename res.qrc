@@ -12,5 +12,6 @@
         <file>data/images/mainui/min-H.png</file>
         <file>data/images/mainui/title.png</file>
         <file>car.ico</file>
+        <file>data/images/mainui/logo.png</file>
     </qresource>
 </RCC>

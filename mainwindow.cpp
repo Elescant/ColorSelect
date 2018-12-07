@@ -1,19 +1,27 @@
 #include "mainwindow.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <WorkThread.h>
 
 MainWindow::MainWindow(QObject *parent) : QObject(parent)
 {
     colordialog = new ColorDialog();
-    serial = new QSerialPort();
-    serial_valid = false;
-    lin_handle = new Lin(serial);
-    sendMsgTimer = new QTimer();
-    sendMsgTimer->setInterval(100);
 
     connect(colordialog,&ColorDialog::colorSelect,this,&MainWindow::colorChangeSlot);
     connect(colordialog,&ColorDialog::cancelBtnsignal,this,&MainWindow::cancelBtnSlot);
-//    connect(sendMsgTimer,&QTimer::timeout,this,&MainWindow::sendMsgSlot);
+}
+
+MainWindow::~MainWindow()
+{
+    if(colordialog)
+    {
+        delete colordialog;
+    }
+    if(workThread->isRunning())
+    {
+        workThread->terminate();
+        workThread->deleteLater();
+    }
 }
 
 void MainWindow::show()
@@ -23,39 +31,17 @@ void MainWindow::show()
 
 bool MainWindow::config()
 {
-    serial->setPortName("ttyUSB0");
-    serial->setBaudRate(QSerialPort::Baud115200);
-    serial->setDataBits(QSerialPort::Data8);
-    serial->setParity(QSerialPort::NoParity);
-    serial->setFlowControl(QSerialPort::NoFlowControl);
-    serial->setStopBits(QSerialPort::OneStop);
+    workThread = new WorkThread;
+    workThread->start();
 
-    if(serial->open(QIODevice::ReadWrite))
-    {
-        serial_valid = true;
-    }else
-    {
-        serial_valid = false;
-        QMessageBox::critical(NULL,"LIN 设备打开失败","未找到LIN设备或已被占用!",QMessageBox::Yes | QMessageBox::Cancel,QMessageBox::Cancel);
-    }
-
-    if(serial_valid)
-    {
-        if(lin_handle->testlink())
-        {
-           lin_handle->setMode(Lin::MASTER);
-           lin_handle->setIDLength(LINID_0x2A,8);
-        }
-    }
+    connect(this,&MainWindow::sendMsg,workThread,&WorkThread::sendMsgSlot);
+    connect(workThread,&WorkThread::wellDone,this,&MainWindow::sendMsgRetSlot);
     return true;
 }
 
 void MainWindow::colorChangeSlot(QColor color, uint8_t fun_bright, uint32_t id)
 {
     //qDebug()<<color.red()<<color.green()<<color.blue();
-    uint8_t dat[8];
-
-//    sendMsgTimer->stop();
     dat[0] = (id & 0xFF);
     dat[1] = (uint8_t)((id >> 8) & 0xFF);
     dat[2] = (uint8_t)((id >> 16) & 0xFF);
@@ -67,27 +53,14 @@ void MainWindow::colorChangeSlot(QColor color, uint8_t fun_bright, uint32_t id)
     dat[6] = fun_bright;//function and brightness
     dat[7] = 0xAA;//crc
 
-
-    if(serial_valid && serial->isOpen())
-    {
-        lin_handle->setIdData(LINID_0x2A,dat,8);
-        QTimer::singleShot(1, this, SLOT(sendMsgSlot()));
-    }
-//    sendMsgTimer->start();
+    emit sendMsg(dat);
 }
 
-void MainWindow::sendMsgSlot()
+void MainWindow::sendMsgRetSlot(bool ret)
 {
-    if(serial_valid && serial->isOpen())
-    {
-        lin_handle->sendHeader(LINID_0x2A);
-    }
+    qDebug()<<"ret "<<ret;
 }
 
 void MainWindow::cancelBtnSlot()
 {
-    if(sendMsgTimer->isActive())
-    {
-        sendMsgTimer->stop();
-    }
 }

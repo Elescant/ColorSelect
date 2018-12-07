@@ -41,7 +41,7 @@ ColorDialog::ColorDialog(QWidget *parent)
 	m_pSetting->ui.setupUi(this);
 	//标题
 	m_pTitleLbl = new QLabel(this);
-    m_pTitleLbl->setText(QString::fromLocal8Bit("华晨"));
+    m_pTitleLbl->setText(QString::fromLocal8Bit(""));
 	m_pTitleLbl->setFixedSize(190, 34);
 
 	//关闭按钮
@@ -73,7 +73,6 @@ ColorDialog::ColorDialog(QWidget *parent)
 ColorDialog::~ColorDialog()
 {
 	delete m_pSetting;
-    qDebug()<<"~ColorDialog";
 }
 
 void ColorDialog::ColorDialog::showDialog()

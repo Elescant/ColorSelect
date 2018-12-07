@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     PreviewColorArea.cpp \
     SVColorArea.cpp \
     mainwindow.cpp \
-    Lin.cpp
+    Lin.cpp \
+    WorkThread.cpp \
+    MyMessageBox.cpp
 
 HEADERS  += ColorTest.h \
     BasicColorArea.h \
@@ -48,7 +50,9 @@ HEADERS  += ColorTest.h \
     PreviewColorArea.h \
     SVColorArea.h \
     mainwindow.h \
-    Lin.h
+    Lin.h \
+    WorkThread.h \
+    MyMessageBox.h
 
 FORMS    += ColorTest.ui \
     ColorDialog.ui
