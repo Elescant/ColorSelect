@@ -27,6 +27,7 @@ public slots:
     void colorChangeSlot(QColor color,uint8_t fun_bright,uint32_t id);
     void cancelBtnSlot();
     void sendMsgRetSlot(bool ret);
+    uint8_t checkSumCrc(uint8_t *ptr, uint8_t len);
 private:
     ColorDialog *colordialog;
 

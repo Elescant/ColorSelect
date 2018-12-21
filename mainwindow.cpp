@@ -51,7 +51,7 @@ void MainWindow::colorChangeSlot(QColor color, uint8_t fun_bright, uint32_t id)
     dat[5] = color.blue();
 
     dat[6] = fun_bright;//function and brightness
-    dat[7] = 0xAA;//crc
+    dat[7] = checkSumCrc(dat,7);//crc
 
     emit sendMsg(dat);
 }
@@ -61,6 +61,36 @@ void MainWindow::sendMsgRetSlot(bool ret)
     qDebug()<<"ret "<<ret;
 }
 
+uint8_t MainWindow::checkSumCrc(uint8_t *ptr, uint8_t len)
+{
+    uint8_t crc = 0;
+    uint8_t i;
+
+    while(len--)
+    {
+        for(i=0x80;i!=0;i>>=1) /* means data is 8 bits. it do 8 times. */
+        {
+            if((crc&0x80) != 0)
+            {
+                crc<<=1;
+                crc^=0x23; /* 0x23 means CRC8=X5+X1+1 */
+            }
+            else
+            {
+                crc<<=1;
+            }
+            if(((*ptr)&i)!=0)
+            {
+                crc^=0x23;
+            }
+        }
+        ptr++;
+    }
+    return(crc);
+}
+
 void MainWindow::cancelBtnSlot()
 {
 }
+
+
