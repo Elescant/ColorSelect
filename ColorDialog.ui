@@ -76,6 +76,10 @@ QPushButton:pressed
 {
 	background:rgb(136, 138, 133);
 }
+QPushButton::disabled
+{
+	background:rgb(136, 138, 133);
+}
 /*1-按钮结束*/
 
 QSpinBox
@@ -188,6 +192,12 @@ QSpinBox::down-button
    </item>
    <item>
     <widget class="QWidget" name="mainWgt" native="true">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>-1</pointsize>
+      </font>
+     </property>
      <widget class="QGroupBox" name="basicGroup">
       <property name="geometry">
        <rect>
@@ -279,7 +289,7 @@ QSpinBox::down-button
        <rect>
         <x>17</x>
         <y>327</y>
-        <width>220</width>
+        <width>222</width>
         <height>30</height>
        </rect>
       </property>
@@ -1508,6 +1518,79 @@ margin:-7px;
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>400</y>
+        <width>91</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Vrinda</family>
+        <pointsize>-1</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QCheckBox::indicator{
+	width:81px;
+	height:48px;
+}
+
+QCheckBox{
+	font:14px;
+   font-family:&quot;Vrinda&quot;;
+   spacing:5px;
+}
+
+QCheckBox::indicator::unchecked{
+image:url(:/Image/data/images/button/switch_off.png)
+}	
+
+QCheckBox::indicator::checked{
+image:url(:/Image/data/images/button/switch_on.png)
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>400</y>
+        <width>41</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>微软雅黑</family>
+        <pointsize>-1</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>颜色跟随</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::RichText</enum>
+      </property>
+      <property name="scaledContents">
+       <bool>false</bool>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
       </property>
      </widget>
     </widget>

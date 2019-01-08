@@ -7,6 +7,7 @@
 #include <QButtonGroup>
 #include <QListWidget>
 #include <stdint.h>
+#include <QTimer>
 //#include <QEventLoop>
 
 class ColorDialog : public QWidget
@@ -53,6 +54,8 @@ private slots:
 
     void listWdtItemPressSlot(QListWidgetItem *item);
 
+    void checkBoxstateChanged(int arg1);
+    void autoUpdateTimerout();
 private:
 	class ColorSetting;
 	ColorSetting * const m_pSetting;
@@ -63,6 +66,7 @@ private:
     QListWidget m_idView;
 //	ButtonRole m_buttonRole;
     bool m_bNotEdit;
+    QTimer *autoUpdateTimer;
 };
 
 #endif // COLORDIALOG_H

@@ -26,9 +26,6 @@ public:
 
 	}
 
-private slots:
-
-
 private:
 
 };
@@ -66,6 +63,9 @@ ColorDialog::ColorDialog(QWidget *parent)
     m_btnGroup->addButton(m_pSetting->ui.radioBtn_gradual,4);
 
 	this->setFocusPolicy(Qt::ClickFocus);
+
+    autoUpdateTimer = new QTimer(this);
+    connect(autoUpdateTimer,&QTimer::timeout,this,&ColorDialog::autoUpdateTimerout);
 
 	initSignalAndSlotConn();
 }
@@ -203,12 +203,12 @@ void ColorDialog::initSignalAndSlotConn()
     connect(m_pSetting->ui.bSpinBox,(void (QSpinBox::*)(int))&QSpinBox::valueChanged,m_pSetting->ui.hSlider_blue,&QSlider::setValue);
     connect(m_pSetting->ui.hSlider_blue,&QSlider::valueChanged,m_pSetting->ui.bSpinBox,&QSpinBox::setValue);
 
-
+    connect(m_pSetting->ui.checkBox,&QCheckBox::stateChanged,this,&ColorDialog::checkBoxstateChanged);
 }
 
 void ColorDialog::updateRGBColor(const QColor &color)
 {
-    qDebug()<<"updateRGBColor";
+    //qDebug()<<"updateRGBColor";
 	m_pSetting->ui.previewWgt->setNewColor(color);
 
 	m_pSetting->ui.rSpinBox->setValue(color.red());
@@ -227,7 +227,7 @@ void ColorDialog::updateRGBColor(const QColor &color)
 
 void ColorDialog::colorItemSelcSlot(const QColor &c)
 {
-    qDebug()<<"colorItemSelecSlot";
+    //qDebug()<<"colorItemSelecSlot";
 	m_bNotEdit = true;
 
 	m_pSetting->ui.hColorWgt->setHue(c.hue());
@@ -600,7 +600,7 @@ void ColorDialog::bValueChangedSlot(int b)
 
 void ColorDialog::updateEditData(int h, int s, int v)
 {
-    qDebug()<<"updateEditData";
+    //qDebug()<<"updateEditData";
 	m_bNotEdit = true;
 
 	m_pSetting->m_iHue = h;
@@ -660,26 +660,29 @@ void ColorDialog::listWdtItemPressSlot(QListWidgetItem *item)
 }
 
 
+void ColorDialog::checkBoxstateChanged(int arg1)
+{
+    if(arg1 == 2)
+    {
+        autoUpdateTimer->start(10);
+        m_pSetting->ui.okBtn->setEnabled(false);
+    }else if(arg1 == 0)
+    {
+        m_pSetting->ui.okBtn->setEnabled(true);
+        autoUpdateTimer->stop();
+    }
+}
 
+void ColorDialog::autoUpdateTimerout()
+{
+    static int hue=0,saturation=0,bright=0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if(hue != m_pSetting->m_iHue || saturation != m_pSetting->m_iBrightness
+            || bright != m_pSetting->m_iSaturation)
+    {
+        hue = m_pSetting->m_iHue;
+        saturation = m_pSetting->m_iBrightness;
+        bright = m_pSetting->m_iSaturation;
+        okBtnClickedSlot();
+    }
+}

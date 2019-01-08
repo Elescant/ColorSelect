@@ -13,5 +13,7 @@
         <file>data/images/mainui/title.png</file>
         <file>car.ico</file>
         <file>data/images/mainui/logo.png</file>
+        <file>data/images/button/switch_on.png</file>
+        <file>data/images/button/switch_off.png</file>
     </qresource>
 </RCC>
