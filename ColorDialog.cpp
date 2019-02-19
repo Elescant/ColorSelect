@@ -55,6 +55,10 @@ ColorDialog::ColorDialog(QWidget *parent)
 	m_pSetting->ui.colorEdit->setValidator(new QRegExpValidator(rx, this));
 	m_pSetting->ui.colorEdit->setText("000000");
 
+    m_pSetting->ui.okBtn->setEnabled(false);
+    m_pSetting->ui.cancelBtn->setEnabled(false);
+    m_pSetting->ui.checkBox->setEnabled(true);
+
     m_btnGroup = new QButtonGroup(this);
     m_btnGroup->addButton(m_pSetting->ui.radioBtn_off,0);
     m_btnGroup->addButton(m_pSetting->ui.radioBtn_on,1);
@@ -664,25 +668,30 @@ void ColorDialog::checkBoxstateChanged(int arg1)
 {
     if(arg1 == 2)
     {
-        autoUpdateTimer->start(10);
-        m_pSetting->ui.okBtn->setEnabled(false);
+        autoUpdateTimer->start(50);
+//        m_pSetting->ui.okBtn->setEnabled(false);
     }else if(arg1 == 0)
     {
-        m_pSetting->ui.okBtn->setEnabled(true);
+//        m_pSetting->ui.okBtn->setEnabled(true);
         autoUpdateTimer->stop();
     }
 }
 
 void ColorDialog::autoUpdateTimerout()
 {
-    static int hue=0,saturation=0,bright=0;
+    static int hue=0,saturation=0,bright=0,last_funbright =0;
 
-    if(hue != m_pSetting->m_iHue || saturation != m_pSetting->m_iBrightness
-            || bright != m_pSetting->m_iSaturation)
-    {
+    uint8_t fun = m_btnGroup->checkedId();
+    uint8_t ledbright = m_pSetting->ui.hSlider_level->value();
+    uint8_t fun_bright = (fun << 5)| ledbright;
+
+//    if(hue != m_pSetting->m_iHue || saturation != m_pSetting->m_iBrightness
+//            || bright != m_pSetting->m_iSaturation || last_funbright != fun_bright)
+//    {
         hue = m_pSetting->m_iHue;
         saturation = m_pSetting->m_iBrightness;
         bright = m_pSetting->m_iSaturation;
+        last_funbright = fun_bright;
         okBtnClickedSlot();
-    }
+//    }
 }

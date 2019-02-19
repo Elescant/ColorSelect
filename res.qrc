@@ -15,5 +15,7 @@
         <file>data/images/mainui/logo.png</file>
         <file>data/images/button/switch_on.png</file>
         <file>data/images/button/switch_off.png</file>
+        <file>data/images/button/arrow_right.png</file>
+        <file>data/images/button/arrow_left.png</file>
     </qresource>
 </RCC>

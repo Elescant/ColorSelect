@@ -14,7 +14,7 @@
    <string>ColorDialog</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="res.qrc">
+   <iconset>
     <normaloff>:/Image/car.ico</normaloff>:/Image/car.ico</iconset>
   </property>
   <property name="styleSheet">
@@ -81,14 +81,47 @@ QPushButton::disabled
 	background:rgb(136, 138, 133);
 }
 /*1-按钮结束*/
+QSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position:right; /* position at the top right corner */
+	height:27px;
+    width: 24px; /* 16 + 2*1px border-width = 15px padding + 3px parent border */
+    background-color:#25272b;
+    border-width: 1px;
+}
+
+QSpinBox::up-arrow {
+	image: url(:/Image/data/images/button/arrow_right.png);
+   height:  27px;
+	width: 24px;
+    
+}
+
+QSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: left; /* position at bottom right corner */
+    height:27px;
+	width: 24px;	 
+    border-width: 1px;
+	 background-color:#25272b;
+    border-top-width: 0;
+}
+
+QSpinBox::down-arrow {
+    image:url(:/Image/data/images/button/arrow_left.png);
+    height: 27px; 
+	width: 24px;
+}
+
 
 QSpinBox
 {
-	border:1px solid #276d94;
-	background-color:#25272b;
-	min-height: 26px;
-	min-width: 70px;
+    /*padding-right: 15px;  make room for the arrows */
+    border-width: 1;
+
+	border:1px solid #276d94;   
 }
+/*
 QSpinBox::up-arrow
 {
 	border-left:8px solid #25272b;
@@ -97,10 +130,20 @@ QSpinBox::up-arrow
 	width:0px;
 	height: 0px;
 }
+*/
+QSpinBox::down-arrow:pressed
+{
+	width: 28px;
+    height: 28px;
+	image:url(:/Image/data/images/button/arrow_left.png);
+}
 QSpinBox::up-arrow:pressed
 {
-	border-bottom:9px solid #81c3d7;
+	width: 28px;
+    height: 28px;
+	image:url(:/Image/data/images/button/arrow_right.png);
 }
+/*
 QSpinBox::up-button
 {
 	margin-right:4px;
@@ -116,10 +159,7 @@ QSpinBox::down-arrow
 	width:0px;
 	height: 0px;
 }
-QSpinBox::down-arrow:pressed
-{
-	border-top:9px solid #81c3d7;
-}
+
 QSpinBox::down-button
 {
 	margin-right:4px;
@@ -127,7 +167,7 @@ QSpinBox::down-button
 	min-height:13px;
 	background-color:#25272b;
 }
-
+*/
 #m_pCloseBtn
 {
 	background:transparent;
@@ -156,7 +196,7 @@ QSpinBox::down-button
     <number>0</number>
    </property>
    <item>
-    <widget class="QWidget" name="topWgt" native="true">
+       <widget class="QWidget" name="topWgt" native="true">
      <property name="minimumSize">
       <size>
        <width>0</width>
@@ -538,23 +578,11 @@ QSpinBox::down-button
      <widget class="QSpinBox" name="vSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>910</x>
         <y>110</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
-       </size>
       </property>
       <property name="accelerated">
        <bool>true</bool>
@@ -568,45 +596,47 @@ QSpinBox::down-button
        <rect>
         <x>640</x>
         <y>30</y>
-        <width>160</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
-background: #C0C0C0; 
+border: 2px solid #4A708B;
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius:3px; 
+padding-left:9px;
+padding-right:9px; 
 } 
 QSlider::sub-page:horizontal 
 { background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #000, stop:1 #FFF); 
 background: qlineargradient(x1:0, y1:1, x2:1, y2:1, stop:0 #000, stop:1 #FFF); 
 border: 1px solid #000; 
-border-radius: 2px;
+border-radius:2px; 
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
-border-radius: 2px;
+ border: 1px solid #777;
+border-radius: 2px; 
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
       <property name="maximum">
        <number>360</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -617,18 +647,18 @@ margin:-7px;
        <rect>
         <x>640</x>
         <y>70</y>
-        <width>160</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:9px;
+padding-right:9px; 
 } 
 QSlider::sub-page:horizontal 
 { 
@@ -639,19 +669,19 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
@@ -667,18 +697,18 @@ margin:-7px;
        <rect>
         <x>640</x>
         <y>105</y>
-        <width>160</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:9px;
+padding-right:9px; 
 } 
 QSlider::sub-page:horizontal 
 {
@@ -689,19 +719,19 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
@@ -717,18 +747,18 @@ margin:-7px;
        <rect>
         <x>640</x>
         <y>160</y>
-        <width>160</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:8px;
+padding-right:8px; 
 } 
 QSlider::sub-page:horizontal 
 { 
@@ -739,24 +769,27 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
       <property name="maximum">
        <number>255</number>
+      </property>
+      <property name="value">
+       <number>0</number>
       </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -767,18 +800,18 @@ margin:-7px;
        <rect>
         <x>640</x>
         <y>200</y>
-        <width>160</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:8px;
+padding-right:8px; 
 } 
 QSlider::sub-page:horizontal 
 {
@@ -789,19 +822,19 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
@@ -817,18 +850,18 @@ margin:-7px;
        <rect>
         <x>640</x>
         <y>240</y>
-        <width>161</width>
+        <width>251</width>
         <height>31</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:8px;
+padding-right:8px; 
 } 
 QSlider::sub-page:horizontal 
 { 
@@ -839,19 +872,19 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
       </property>
@@ -956,18 +989,18 @@ margin:-7px;
         <rect>
          <x>290</x>
          <y>110</y>
-         <width>181</width>
+         <width>231</width>
          <height>41</height>
         </rect>
        </property>
        <property name="styleSheet">
         <string notr="true">QSlider::groove:horizontal { 
-border: 1px solid #4A708B;
+border: 2px solid #4A708B;
 background: #C0C0C0; 
 height: 10px; 
-border-radius: 1px; 
-padding-left:5px;
-padding-right:5px; 
+border-radius: 3px; 
+padding-left:8px;
+padding-right:8px; 
 } 
 QSlider::sub-page:horizontal 
 {
@@ -978,19 +1011,19 @@ border-radius: 2px;
  } 
 QSlider::add-page:horizontal {
  background: #575757;
- border: 0px solid #777;
+ border: 1px solid #777;
 border-radius: 2px;
  } 
 QSlider::handle:horizontal { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(136, 138, 133), stop:0.778409 rgba(255, 255, 255, 255));
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
 border-radius: 5px; 
 }
  QSlider::handle:horizontal:hover { 
 background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(85, 87, 83), stop:0.778409 rgba(255, 255, 255, 255)); 
-width: 24px; 
-margin:-7px;
+width: 28px; 
+margin:-9px;
  border-radius: 5px; 
 } </string>
        </property>
@@ -1000,6 +1033,9 @@ margin:-7px;
        <property name="pageStep">
         <number>1</number>
        </property>
+       <property name="value">
+        <number>20</number>
+       </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -1007,13 +1043,16 @@ margin:-7px;
       <widget class="QSpinBox" name="spinBox">
        <property name="geometry">
         <rect>
-         <x>490</x>
+         <x>530</x>
          <y>110</y>
          <width>72</width>
          <height>31</height>
         </rect>
        </property>
        <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="value">
         <number>20</number>
        </property>
       </widget>
@@ -1225,22 +1264,16 @@ margin:-7px;
      <widget class="QSpinBox" name="bSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>910</x>
         <y>240</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
       <property name="accelerated">
@@ -1284,22 +1317,16 @@ margin:-7px;
      <widget class="QSpinBox" name="rSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>909</x>
         <y>160</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
       <property name="accelerated">
@@ -1312,22 +1339,16 @@ margin:-7px;
      <widget class="QSpinBox" name="gSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>910</x>
         <y>200</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
       <property name="accelerated">
@@ -1371,23 +1392,14 @@ margin:-7px;
      <widget class="QSpinBox" name="hSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>909</x>
         <y>30</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
-       </size>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="accelerated">
        <bool>true</bool>
@@ -1433,23 +1445,11 @@ margin:-7px;
      <widget class="QSpinBox" name="sSpinBox">
       <property name="geometry">
        <rect>
-        <x>810</x>
+        <x>910</x>
         <y>70</y>
-        <width>72</width>
-        <height>28</height>
+        <width>91</width>
+        <height>31</height>
        </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>72</width>
-        <height>28</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>70</width>
-        <height>26</height>
-       </size>
       </property>
       <property name="accelerated">
        <bool>true</bool>
@@ -1630,9 +1630,7 @@ image:url(:/Image/data/images/button/switch_on.png)
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="res.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>hSlider_level</sender>
